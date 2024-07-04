@@ -45,7 +45,7 @@ const formSchema = z.object({
   local: z.string().min(2, {
     message: "Digite um local válido",
   }),
-  date: z.date({ message: "Por favor, insira uma data" }),
+  date: z.date({ message: "Por favor, insira uma data" }).optional(),
   hour: z.string().min(4, {
     message: "Digite um horário válido",
   }),
@@ -70,13 +70,13 @@ const EventCreatePage = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-    
+
     try {
       const response = await api.post("/events", {
         location: values.local,
         title: values.eventname,
         description: values.description,
-        organizerId: data?.user.id,
+        organizerId: "b0745f32-0bbb-4674-ba6e-8b0e1d5f9294",
         date: new Date(values.date), // Certifique-se de que o valor de 'date' é uma string que pode ser convertida para um Date
       });
       setMessage("Evento criado com sucesso!");
